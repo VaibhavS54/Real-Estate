@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     port: 5173, // local dev port
   },
-  resolve: {
+  resolve: {                                
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
@@ -20,7 +20,7 @@ export default defineConfig({
         manualChunks: (id) => {
           // create a separate chunk for react-helmet-async
           if (id.includes("node_modules/react-helmet-async")) {
-            return "react-helmet-async";
+            return "react-helmet-async";   
           }
         },
       },
