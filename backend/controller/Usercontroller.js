@@ -47,11 +47,14 @@ const register = async (req, res) => {
     if (!validator.isEmail(email)) {
       return res.json({ message: "Invalid email", success: false });
     }
+    console.log("2")
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new userModel({ name, email, password: hashedPassword });
+    console.log("1")
     await newUser.save();
+    console.log("First")
     const token = createtoken(newUser._id);
-
+    console.log("Second")
     // send email
     const mailOptions = {
       from: process.env.EMAIL,
@@ -59,9 +62,9 @@ const register = async (req, res) => {
       subject: "Welcome to BuildEstate - Your Account Has Been Created",
       html: getWelcomeTemplate(name)
     };
-
+console.log("Third")
     await transporter.sendMail(mailOptions);
-
+console.log("Forth")
     return res.json({ token, user: { name: newUser.name, email: newUser.email }, success: true });
   } catch (error) {
     console.error(error);
